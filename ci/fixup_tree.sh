@@ -33,9 +33,13 @@ gated = (
 open_gate = (
     "\t# Every target built by this branch is ARMv7, and the header-export\n"
     "\t# stage runs before TARGET_CONFIGS names a machine config, so these\n"
-    "\t# defines cannot be gated on it.\n"
+    "\t# defines cannot be gated on it.  The extra -I roots are where the HD2\n"
+    "\t# headers live: they are included by bare name from other components.\n"
     "\tBUILD_NO_DEBUG := 1\n"
-    "\tRC_CFLAGS := -D__arm__ -DARM\n"
+    "\tRC_CFLAGS := -D__arm__ -DARM -Wno-error -Wno-undef-prefix "
+    "-I$(SRCROOT)/osfmk/kern -I$(SRCROOT)/osfmk/ipc "
+    "-I$(SRCROOT)/iokit/Drivers/KernelBuiltIn/ARM/AppleARMPlatform "
+    "-I$(SRCROOT)/pexpert/arm -I$(SRCROOT)/bsd/dev/arm\n"
 )
 
 if gated in src:
