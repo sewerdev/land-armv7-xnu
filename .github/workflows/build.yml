@@ -33,7 +33,7 @@ jobs:
           sudo dpkg --add-architecture i386
           sudo apt-get update -qq
           sudo apt-get install -y -qq libc6-i386 lib32stdc++6 lib32z1 lib32gcc-s1 \
-            clang-14 bison flex unifdef patchutils xz-utils dpkg-dev file python3
+            libuuid1:i386 clang-14 bison flex unifdef patchutils xz-utils dpkg-dev file python3
           clang-14 --version | head -1
 
       - name: Old libcrypto for the 32-bit cctools ld
@@ -127,5 +127,6 @@ jobs:
           path: |
             ${{ github.workspace }}/build.log
             ${{ github.workspace }}/ld-wrapper.log
-            /tmp/xcrun.log
+            ${{ github.workspace }}/obj/DEBUG_ARM_*/mach_kernel
+            ${{ github.workspace }}/obj/DEBUG_ARM_*/mach_kernel.sys
           if-no-files-found: ignore
