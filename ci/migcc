@@ -5,5 +5,4 @@
 # through to `#error Unsupported arch`, which then aborts every mig step.
 # Pin the ARM target here so the preprocessor sees the same architecture as
 # the kernel proper.
-exec "${CLANG:-clang-14}" -target armv7-apple-ios6.1 -march=arm -mcpu=cortex-a8 \
-    -mfloat-abi=softfp -mfpu=vfpv3 "$@"
+exec "${CLANG:-clang-14}" --target=armv7-apple-darwin -D__arm__ -DARM "$@"
