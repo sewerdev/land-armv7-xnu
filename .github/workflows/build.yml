@@ -95,9 +95,18 @@ jobs:
           export HOST_CC=clang-14
           export SRCROOT="$PWD" OBJROOT="$WS/obj" DSTROOT="$WS/dst" SYMROOT="$WS/sym"
           mkdir -p "$OBJROOT" "$DSTROOT" "$SYMROOT"
-          # -k keeps going so one run reports every distinct failure
-          make -k TARGET_CONFIGS="${{ inputs.target }}" > "$WS/build.log" 2>&1
-          echo "=== make exit $? ==="; wc -l "$WS/build.log"
+          # makedefs only builds the SETUP host tools on Darwin, but the kernel
+          # object rule needs SEG_HACK (setsegname) on every platform.
+          mkdir -p "$OBJROOT/SETUP/setsegname" "$OBJROOT/SETUP/kextsymboltool"
+          clang-14 -O1 -I"$PWD/EXTERNAL_HEADERS" -o "$OBJROOT/SETUP/setsegname/setsegname" \
+              "$PWD/SETUP/setsegname/setsegname.c" && echo "setsegname built"
+          clang-14 -O1 -I"$PWD/EXTERNAL_HEADERS" -I"$PWD" \
+              -o "$OBJROOT/SETUP/kextsymboltool/kextsymboltool" \
+              "$PWD/SETUP/kextsymboltool/kextsymboltool.c" \
+              || echo "kextsymboltool skipped (only needed for static kmods)"
+          rc=0
+          make -k TARGET_CONFIGS="${{ inputs.target }}" > "$WS/build.log" 2>&1 || rc=$?
+          echo "=== make exit $rc ==="; wc -l "$WS/build.log"
           echo "=== distinct errors ==="
           grep -h -oE "(fatal error|error): .*" "$WS/build.log" | sort -u | head -50
           echo "=== distinct missing headers ==="
