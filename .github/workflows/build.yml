@@ -78,7 +78,7 @@ jobs:
         run: |
           git clone --depth 1 "${{ inputs.repo }}" "$WS/src"
           cd "$WS/src" && git log -1 --format='%H %ci %s'
-          bash "$WS/ci/fixup_tree.sh" "$WS/src/${{ inputs.subdir }}"
+          bash "$WS/ci/fixup_tree.sh" "$WS/src/${{ inputs.subdir }}" "$WS/ci"
           cd "${{ inputs.subdir }}"
           echo "=== machine links now ==="
           find . -type l -name machine -not -path "./.git/*" -printf "%p -> %l\n" | head -12

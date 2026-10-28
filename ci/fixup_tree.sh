@@ -56,3 +56,13 @@ else:
             break
     sys.exit("MakeInc.def: expected RC_CFLAGS block not found; adapt the patch")
 PY
+
+# osfmk/kdp/kdp.c dereferences struct mem_and_io_snapshot and uses the
+# STACKSHOT_* constants, but the published export carries no bsd/sys/stackshot.h.
+if [ ! -e "$root/bsd/sys/stackshot.h" ]; then
+    cidir="${2:-$(dirname "$(readlink -f "$0")")}"
+    install -m 644 "$cidir/tree/bsd_sys_stackshot.h" "$root/bsd/sys/stackshot.h"
+    echo "restored bsd/sys/stackshot.h"
+else
+    echo "bsd/sys/stackshot.h already present"
+fi
