@@ -58,3 +58,46 @@ else:
             break
     sys.exit("MakeInc.def: expected RC_CFLAGS block not found; adapt the patch")
 PY
+
+# The Linux branch resolves setsegname and kextsymboltool through xcrun, and
+# neither exists on Linux, so SEG_HACK ends up as a no-op.  The kernel object
+# rule then runs `setsegname __KLD obj.o -o obj.o__` followed by
+# `mv obj.o__ obj.o`, the no-op leaves no obj.o__, the mv fails, and every
+# $(COMPONENT).filelist target dies before the link.  Build the two tools from
+# SETUP like the Darwin branch does.  Their sources include Darwin's <libc.h>.
+python3 - "$root" <<'PY'
+import os
+import sys
+
+root = sys.argv[1]
+
+cmd = os.path.join(root, "makedefs", "MakeInc.cmd")
+src = open(cmd, encoding="utf-8", errors="surrogateescape").read()
+pairs = [
+    ("\tSEG_HACK := $(shell $(XCRUN) -sdk $(SDKROOT) -find setsegname)",
+     "\tSEG_HACK := $(OBJROOT)/SETUP/setsegname/setsegname"),
+    ("\tKEXT_CREATE_SYMBOL_SET := $(shell $(XCRUN) -sdk $(SDKROOT) -find kextsymboltool)",
+     "\tKEXT_CREATE_SYMBOL_SET := $(OBJROOT)/SETUP/kextsymboltool/kextsymboltool"),
+]
+for old, new in pairs:
+    if old in src:
+        src = src.replace(old, new)
+        print("MakeInc.cmd: %s" % new.strip())
+    elif new in src:
+        print("MakeInc.cmd: already patched (%s)" % new.strip())
+    else:
+        sys.exit("MakeInc.cmd: line to patch not found: %r" % old[:60])
+open(cmd, "w", encoding="utf-8", errors="surrogateescape").write(src)
+
+for name in ("setsegname", "kextsymboltool", "decomment"):
+    path = os.path.join(root, "SETUP", name, name + ".c")
+    if not os.path.exists(path):
+        print("SETUP/%s: source missing, skipping" % name)
+        continue
+    s = open(path, encoding="utf-8", errors="surrogateescape").read()
+    if "#include <libc.h>" in s:
+        s = s.replace("#include <libc.h>",
+                      "#include <stdio.h>\n#include <stdlib.h>\n#include <unistd.h>")
+        open(path, "w", encoding="utf-8", errors="surrogateescape").write(s)
+        print("SETUP/%s: replaced Darwin <libc.h> with POSIX headers" % name)
+PY
