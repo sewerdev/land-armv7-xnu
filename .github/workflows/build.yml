@@ -33,7 +33,7 @@ jobs:
           sudo dpkg --add-architecture i386
           sudo apt-get update -qq
           sudo apt-get install -y -qq libc6-i386 lib32stdc++6 lib32z1 lib32gcc-s1 \
-            libuuid1:i386 clang-14 bison flex unifdef patchutils xz-utils dpkg-dev file python3
+            libuuid1:i386 libc6-dev-i386 clang-14 bison flex unifdef patchutils xz-utils dpkg-dev file python3
           clang-14 --version | head -1
 
       - name: Old libcrypto for the 32-bit cctools ld
@@ -45,6 +45,18 @@ jobs:
           dpkg-deb -x "$deb" "$WS/cryptolib"
           ls -l "$WS/cryptolib/usr/lib/i386-linux-gnu" | head
           echo "LD_LIBRARY_PATH=$WS/cryptolib/usr/lib/i386-linux-gnu" >> "$GITHUB_ENV"
+
+      - name: Provide the i386 libLTO stub that cctools ld links against
+        run: |
+          # cctools-836 ld is built against clang 3.x's libLTO.  Nothing in this
+          # kernel build passes bitcode to the linker, so an empty shared object
+          # satisfies the dynamic loader and never gets called.
+          printf 'int land_libLTO_unused(void){return 0;}\n' > "$WS/libLTO-stub.c"
+          clang-14 -m32 -shared -fPIC -Wl,-soname,libLTO.so \
+              -o "$WS/libLTO.so" "$WS/libLTO-stub.c"
+          sudo cp "$WS/libLTO.so" /usr/local/lib/libLTO.so
+          sudo ldconfig || true
+          ldd "$TOOLDIR/arm-apple-darwin11-ld" | sed -n '1,12p'
 
       - name: Install the Mach-O toolchain
         run: |
