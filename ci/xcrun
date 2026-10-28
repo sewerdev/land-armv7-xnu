@@ -15,9 +15,9 @@ find_tool() {
     case "$1" in
     clang) echo "${CLANG:-/usr/bin/clang-14}" ;;
     clang++) echo "${CLANGXX:-/usr/bin/clang++-14}" ;;
-    ld | as | strip | lipo | libtool | nm | nmedit | ar | size | strings |
-        otool | install_name_tool | codesign_allocate | segedit | seg_hack |
-        seg_addr_table | dyldinfo | indr | ObjectDump | machochecker | pagestuff |
+    ld | as | strip | lipo | libtool | nm | nmedit | ar | size | strings | \
+        otool | install_name_tool | codesign_allocate | segedit | seg_hack | \
+        seg_addr_table | dyldinfo | indr | ObjectDump | machochecker | pagestuff | \
         unwinddump | checksyms | redo_prebinding | ranlib)
         echo "$TOOLDIR/arm-apple-darwin11-$1" ;;
     mig) echo /usr/bin/mig ;;
