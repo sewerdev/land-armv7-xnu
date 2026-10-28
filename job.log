@@ -1,0 +1,466 @@
+probe	Set up job	﻿2026-10-28T17:06:01.3750842Z Current runner version: '2.338.0'
+probe	Set up job	2026-10-28T17:06:01.3780332Z ##[group]Runner Image Provisioner
+probe	Set up job	2026-10-28T17:06:01.3781284Z Hosted Compute Agent
+probe	Set up job	2026-10-28T17:06:01.3781904Z Version: 20261021.618
+probe	Set up job	2026-10-28T17:06:01.3782664Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+probe	Set up job	2026-10-28T17:06:01.3783399Z Build Date: 2026-10-21T00:45:21Z
+probe	Set up job	2026-10-28T17:06:01.3784161Z Worker ID: {fced1aa2-54ca-490b-8411-73216d8f581c}
+probe	Set up job	2026-10-28T17:06:01.3784922Z Region: westus2
+probe	Set up job	2026-10-28T17:06:01.3785509Z Cloud: Azure
+probe	Set up job	2026-10-28T17:06:01.3786169Z ##[endgroup]
+probe	Set up job	2026-10-28T17:06:01.3788169Z ##[group]Operating System
+probe	Set up job	2026-10-28T17:06:01.3788969Z Ubuntu
+probe	Set up job	2026-10-28T17:06:01.3789553Z 22.04.5
+probe	Set up job	2026-10-28T17:06:01.3790111Z LTS
+probe	Set up job	2026-10-28T17:06:01.3790707Z ##[endgroup]
+probe	Set up job	2026-10-28T17:06:01.3791301Z ##[group]Runner Image
+probe	Set up job	2026-10-28T17:06:01.3791902Z Image: ubuntu-22.04
+probe	Set up job	2026-10-28T17:06:01.3792571Z Version: 20261025.340.1
+probe	Set up job	2026-10-28T17:06:01.3793676Z Included Software: https://github.com/actions/runner-images/blob/ubuntu22/20261025.340/images/ubuntu/Ubuntu2204-Readme.md
+probe	Set up job	2026-10-28T17:06:01.3795618Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu22%2F20261025.340
+probe	Set up job	2026-10-28T17:06:01.3797261Z ##[endgroup]
+probe	Set up job	2026-10-28T17:06:01.3798727Z ##[group]GITHUB_TOKEN Permissions
+probe	Set up job	2026-10-28T17:06:01.3801060Z Contents: read
+probe	Set up job	2026-10-28T17:06:01.3801897Z Metadata: read
+probe	Set up job	2026-10-28T17:06:01.3802510Z Packages: read
+probe	Set up job	2026-10-28T17:06:01.3803145Z ##[endgroup]
+probe	Set up job	2026-10-28T17:06:01.3805358Z Secret source: Actions
+probe	Set up job	2026-10-28T17:06:01.3806438Z Cache mode: write
+probe	Set up job	2026-10-28T17:06:01.3807675Z Prepare workflow directory
+probe	Set up job	2026-10-28T17:06:01.4367973Z Prepare all required actions
+probe	Set up job	2026-10-28T17:06:01.4418470Z Getting action download info
+probe	Set up job	2026-10-28T17:06:01.7971371Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+probe	Set up job	2026-10-28T17:06:01.9897300Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+probe	Set up job	2026-10-28T17:06:02.2143385Z Complete job name: probe
+probe	Run actions/checkout@v4	﻿2026-10-28T17:06:02.2926417Z ##[group]Run actions/checkout@v4
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.2927586Z with:
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.2928053Z   repository: sewerdev/land-armv7-xnu
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.2932218Z   token: ***
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.2932660Z   ssh-strict: true
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.2933098Z   ssh-user: git
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.2933542Z   persist-credentials: true
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.2934027Z   clean: true
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.2934471Z   sparse-checkout-cone-mode: true
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.2934988Z   fetch-depth: 1
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.2935419Z   fetch-tags: false
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.2935863Z   show-progress: true
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.2936314Z   lfs: false
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.2936885Z   submodules: false
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.2937337Z   set-safe-directory: true
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.2937841Z   allow-unsafe-pr-checkout: false
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.2938609Z env:
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.2939095Z   WS: /home/runner/work/land-armv7-xnu/land-armv7-xnu
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.2939710Z ##[endgroup]
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.5643150Z Syncing repository: sewerdev/land-armv7-xnu
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.5646069Z ##[group]Getting Git version info
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.5647642Z Working directory is '/home/runner/work/land-armv7-xnu/land-armv7-xnu'
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.5649308Z [command]/usr/bin/git version
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.5747569Z git version 2.56.0
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.5775064Z ##[endgroup]
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.5791820Z Temporarily overriding HOME='/home/runner/work/_temp/8e6c1a19-5e67-46f4-8667-f533a2f8379f' before making global git config changes
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.5799367Z Adding repository directory to the temporary git global config as a safe directory
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.5801550Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/land-armv7-xnu/land-armv7-xnu
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.5858793Z Deleting the contents of '/home/runner/work/land-armv7-xnu/land-armv7-xnu'
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.5862424Z ##[group]Initializing the repository
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.5866711Z [command]/usr/bin/git init /home/runner/work/land-armv7-xnu/land-armv7-xnu
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6008276Z hint: Using 'master' as the name for the initial branch. This default branch name
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6010311Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6011891Z hint: to use in all of your new repositories, which will suppress this warning,
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6013272Z hint: call:
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6013978Z hint:
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6014912Z hint: 	git config --global init.defaultBranch <name>
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6016042Z hint:
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6017420Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6019196Z hint: 'development'. The just-created branch can be renamed via this command:
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6020783Z hint:
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6021590Z hint: 	git branch -m <name>
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6022441Z hint:
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6023518Z hint: Disable this message with "git config set advice.defaultBranchName false"
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6025355Z Initialized empty Git repository in /home/runner/work/land-armv7-xnu/land-armv7-xnu/.git/
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6029184Z [command]/usr/bin/git remote add origin https://github.com/sewerdev/land-armv7-xnu
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6080224Z ##[endgroup]
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6086281Z ##[group]Disabling automatic garbage collection
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6087892Z [command]/usr/bin/git config --local gc.auto 0
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6128951Z ##[endgroup]
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6130441Z ##[group]Setting up auth
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6138072Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6181551Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6637964Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6682850Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.6974268Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.7032371Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.7316634Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.7371503Z ##[endgroup]
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.7372386Z ##[group]Fetching the repository
+probe	Run actions/checkout@v4	2026-10-28T17:06:02.7381977Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +f9f1dfb7e3c269f1aa7ad512bdfbe3799ce64f5f:refs/remotes/origin/master
+probe	Run actions/checkout@v4	2026-10-28T17:06:03.0988079Z From https://github.com/sewerdev/land-armv7-xnu
+probe	Run actions/checkout@v4	2026-10-28T17:06:03.0990625Z  * [new ref]         f9f1dfb7e3c269f1aa7ad512bdfbe3799ce64f5f -> origin/master
+probe	Run actions/checkout@v4	2026-10-28T17:06:03.0995832Z ##[endgroup]
+probe	Run actions/checkout@v4	2026-10-28T17:06:03.0998586Z ##[group]Determining the checkout info
+probe	Run actions/checkout@v4	2026-10-28T17:06:03.1000847Z ##[endgroup]
+probe	Run actions/checkout@v4	2026-10-28T17:06:03.1006525Z [command]/usr/bin/git sparse-checkout disable
+probe	Run actions/checkout@v4	2026-10-28T17:06:03.1072326Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+probe	Run actions/checkout@v4	2026-10-28T17:06:03.1119301Z ##[group]Checking out the ref
+probe	Run actions/checkout@v4	2026-10-28T17:06:03.1126172Z [command]/usr/bin/git checkout --progress --force -B master refs/remotes/origin/master
+probe	Run actions/checkout@v4	2026-10-28T17:06:03.1226136Z Reset branch 'master'
+probe	Run actions/checkout@v4	2026-10-28T17:06:03.1228914Z branch 'master' set up to track 'origin/master'.
+probe	Run actions/checkout@v4	2026-10-28T17:06:03.1238827Z ##[endgroup]
+probe	Run actions/checkout@v4	2026-10-28T17:06:03.1306705Z [command]/usr/bin/git log -1 --format=%H
+probe	Run actions/checkout@v4	2026-10-28T17:06:03.1358017Z f9f1dfb7e3c269f1aa7ad512bdfbe3799ce64f5f
+probe	Install host packages	﻿2026-10-28T17:06:03.1663463Z ##[group]Run sudo dpkg --add-architecture i386
+probe	Install host packages	2026-10-28T17:06:03.1665520Z ^[[36;1msudo dpkg --add-architecture i386^[[0m
+probe	Install host packages	2026-10-28T17:06:03.1667418Z ^[[36;1msudo apt-get update -qq^[[0m
+probe	Install host packages	2026-10-28T17:06:03.1669875Z ^[[36;1msudo apt-get install -y -qq libc6-i386 lib32stdc++6 lib32z1 lib32gcc-s1 \^[[0m
+probe	Install host packages	2026-10-28T17:06:03.1672479Z ^[[36;1m  clang-14 bison flex patchutils xz-utils file python3^[[0m
+probe	Install host packages	2026-10-28T17:06:03.1674646Z ^[[36;1mecho "clang: $(clang-14 --version | head -1)"^[[0m
+probe	Install host packages	2026-10-28T17:06:03.1760522Z shell: /usr/bin/bash -e {0}
+probe	Install host packages	2026-10-28T17:06:03.1761441Z env:
+probe	Install host packages	2026-10-28T17:06:03.1762150Z   WS: /home/runner/work/land-armv7-xnu/land-armv7-xnu
+probe	Install host packages	2026-10-28T17:06:03.1763198Z ##[endgroup]
+probe	Install host packages	2026-10-28T17:06:13.6976277Z Selecting previously unselected package patchutils.
+probe	Install host packages	2026-10-28T17:06:13.7394146Z (Reading database ... 
+probe	Install host packages	2026-10-28T17:06:13.7394716Z (Reading database ... 5%
+probe	Install host packages	2026-10-28T17:06:13.7395262Z (Reading database ... 10%
+probe	Install host packages	2026-10-28T17:06:13.7395820Z (Reading database ... 15%
+probe	Install host packages	2026-10-28T17:06:13.7396453Z (Reading database ... 20%
+probe	Install host packages	2026-10-28T17:06:13.7397658Z (Reading database ... 25%
+probe	Install host packages	2026-10-28T17:06:13.7398114Z (Reading database ... 30%
+probe	Install host packages	2026-10-28T17:06:13.7398711Z (Reading database ... 35%
+probe	Install host packages	2026-10-28T17:06:13.7399275Z (Reading database ... 40%
+probe	Install host packages	2026-10-28T17:06:13.7399762Z (Reading database ... 45%
+probe	Install host packages	2026-10-28T17:06:13.7400232Z (Reading database ... 50%
+probe	Install host packages	2026-10-28T17:06:13.8128966Z (Reading database ... 55%
+probe	Install host packages	2026-10-28T17:06:14.0643260Z (Reading database ... 60%
+probe	Install host packages	2026-10-28T17:06:14.2897981Z (Reading database ... 65%
+probe	Install host packages	2026-10-28T17:06:14.4118899Z (Reading database ... 70%
+probe	Install host packages	2026-10-28T17:06:14.6196507Z (Reading database ... 75%
+probe	Install host packages	2026-10-28T17:06:14.7859519Z (Reading database ... 80%
+probe	Install host packages	2026-10-28T17:06:15.0298065Z (Reading database ... 85%
+probe	Install host packages	2026-10-28T17:06:15.1661946Z (Reading database ... 90%
+probe	Install host packages	2026-10-28T17:06:15.4285978Z (Reading database ... 95%
+probe	Install host packages	2026-10-28T17:06:15.4286507Z (Reading database ... 100%
+probe	Install host packages	2026-10-28T17:06:15.4340973Z (Reading database ... 263322 files and directories currently installed.)
+probe	Install host packages	2026-10-28T17:06:15.4341706Z Preparing to unpack .../patchutils_0.4.2-1build2_amd64.deb ...
+probe	Install host packages	2026-10-28T17:06:15.4373196Z Unpacking patchutils (0.4.2-1build2) ...
+probe	Install host packages	2026-10-28T17:06:15.5052462Z Setting up patchutils (0.4.2-1build2) ...
+probe	Install host packages	2026-10-28T17:06:15.5081120Z Processing triggers for man-db (2.10.2-1) ...
+probe	Install host packages	2026-10-28T17:06:15.5107196Z Not building database; man-db/auto-update is not 'true'.
+probe	Install host packages	2026-10-28T17:06:16.1814074Z 
+probe	Install host packages	2026-10-28T17:06:16.1814718Z Running kernel seems to be up-to-date.
+probe	Install host packages	2026-10-28T17:06:16.1815330Z 
+probe	Install host packages	2026-10-28T17:06:16.1815516Z No services need to be restarted.
+probe	Install host packages	2026-10-28T17:06:16.1815828Z 
+probe	Install host packages	2026-10-28T17:06:16.1815996Z No containers need to be restarted.
+probe	Install host packages	2026-10-28T17:06:16.1816319Z 
+probe	Install host packages	2026-10-28T17:06:16.1816540Z No user sessions are running outdated binaries.
+probe	Install host packages	2026-10-28T17:06:16.1817258Z 
+probe	Install host packages	2026-10-28T17:06:16.1817629Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+probe	Install host packages	2026-10-28T17:06:19.3544460Z clang: Ubuntu clang version 14.0.0-1ubuntu1.1
+probe	Unpack the Mach-O toolchain (machdeps)	﻿2026-10-28T17:06:19.3593218Z ##[group]Run mkdir -p "$WS/machdeps"
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.3593613Z ^[[36;1mmkdir -p "$WS/machdeps"^[[0m
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.3593949Z ^[[36;1mtar -xJf machdeps.tar.xz -C "$WS/machdeps"^[[0m
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.3672203Z ^[[36;1mecho "=== tree ==="^[[0m
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.3672620Z ^[[36;1mfind "$WS/machdeps" -maxdepth 3 -type d | head -20^[[0m
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.3672972Z ^[[36;1mecho "=== binaries ==="^[[0m
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.3673471Z ^[[36;1mls "$WS/machdeps/usr/bin" 2>/dev/null | head -40 || ls "$WS/machdeps" | head -40^[[0m
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.3673969Z ^[[36;1mecho "=== file types ==="^[[0m
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.3674297Z ^[[36;1mfor t in mig ld as ar; do^[[0m
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.3674654Z ^[[36;1m  b=$(find "$WS/machdeps" -name "*-$t" -o -name "$t" | head -1)^[[0m
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.3675065Z ^[[36;1m  [ -n "$b" ] && { echo "-- $b"; file "$b"; }^[[0m
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.3675345Z ^[[36;1mdone^[[0m
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.3743149Z shell: /usr/bin/bash -e {0}
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.3743435Z env:
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.3743692Z   WS: /home/runner/work/land-armv7-xnu/land-armv7-xnu
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.3744067Z ##[endgroup]
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5250548Z === tree ===
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5268585Z /home/runner/work/land-armv7-xnu/land-armv7-xnu/machdeps
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5269601Z /home/runner/work/land-armv7-xnu/land-armv7-xnu/machdeps/usr
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5270215Z /home/runner/work/land-armv7-xnu/land-armv7-xnu/machdeps/usr/bin
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5270766Z /home/runner/work/land-armv7-xnu/land-armv7-xnu/machdeps/usr/libexec
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5271480Z /home/runner/work/land-armv7-xnu/land-armv7-xnu/machdeps/usr/libexec/as
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5272315Z === binaries ===
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5287871Z arm-apple-darwin11-ObjectDump
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5288470Z arm-apple-darwin11-ar
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5290892Z arm-apple-darwin11-as
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5291168Z arm-apple-darwin11-checksyms
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5291445Z arm-apple-darwin11-codesign_allocate
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5291745Z arm-apple-darwin11-dyldinfo
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5291993Z arm-apple-darwin11-indr
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5292257Z arm-apple-darwin11-install_name_tool
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5292535Z arm-apple-darwin11-ld
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5292927Z arm-apple-darwin11-libtool
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5293661Z arm-apple-darwin11-lipo
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5294233Z arm-apple-darwin11-machochecker
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5294836Z arm-apple-darwin11-nm
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5295398Z arm-apple-darwin11-nmedit
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5295926Z arm-apple-darwin11-otool
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5296489Z arm-apple-darwin11-pagestuff
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5297475Z arm-apple-darwin11-ranlib
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5298048Z arm-apple-darwin11-redo_prebinding
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5298934Z arm-apple-darwin11-seg_addr_table
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5299453Z arm-apple-darwin11-seg_hack
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5299900Z arm-apple-darwin11-segedit
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5300313Z arm-apple-darwin11-size
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5300715Z arm-apple-darwin11-strings
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5301170Z arm-apple-darwin11-strip
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5301593Z arm-apple-darwin11-unwinddump
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5302069Z mig
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5302434Z xcodebuild
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5302750Z xcrun
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5303114Z === file types ===
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.5317795Z -- /home/runner/work/land-armv7-xnu/land-armv7-xnu/machdeps/usr/bin/mig
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.7213527Z /home/runner/work/land-armv7-xnu/land-armv7-xnu/machdeps/usr/bin/mig: POSIX shell script, ASCII text executable
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.7244138Z -- /home/runner/work/land-armv7-xnu/land-armv7-xnu/machdeps/usr/bin/arm-apple-darwin11-ld
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.7287199Z /home/runner/work/land-armv7-xnu/land-armv7-xnu/machdeps/usr/bin/arm-apple-darwin11-ld: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.2, for GNU/Linux 2.6.32, not stripped
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.7319167Z -- /home/runner/work/land-armv7-xnu/land-armv7-xnu/machdeps/usr/bin/arm-apple-darwin11-as
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.7340841Z /home/runner/work/land-armv7-xnu/land-armv7-xnu/machdeps/usr/bin/arm-apple-darwin11-as: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.2, for GNU/Linux 2.6.32, not stripped
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.7373239Z -- /home/runner/work/land-armv7-xnu/land-armv7-xnu/machdeps/usr/bin/arm-apple-darwin11-ar
+probe	Unpack the Mach-O toolchain (machdeps)	2026-10-28T17:06:19.7390362Z /home/runner/work/land-armv7-xnu/land-armv7-xnu/machdeps/usr/bin/arm-apple-darwin11-ar: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.2, for GNU/Linux 2.6.32, not stripped
+probe	Clone the xnu tree	﻿2026-10-28T17:06:19.7452040Z ##[group]Run git clone --depth 1 "https://github.com/kOtusin/xnu-j1xlte" "$WS/src"
+probe	Clone the xnu tree	2026-10-28T17:06:19.7452690Z ^[[36;1mgit clone --depth 1 "https://github.com/kOtusin/xnu-j1xlte" "$WS/src"^[[0m
+probe	Clone the xnu tree	2026-10-28T17:06:19.7453086Z ^[[36;1mcd "$WS/src"^[[0m
+probe	Clone the xnu tree	2026-10-28T17:06:19.7453367Z ^[[36;1mecho "commit: $(git log -1 --format='%H %ci %s')"^[[0m
+probe	Clone the xnu tree	2026-10-28T17:06:19.7453697Z ^[[36;1mdu -sh .^[[0m
+probe	Clone the xnu tree	2026-10-28T17:06:19.7518052Z shell: /usr/bin/bash -e {0}
+probe	Clone the xnu tree	2026-10-28T17:06:19.7518312Z env:
+probe	Clone the xnu tree	2026-10-28T17:06:19.7518562Z   WS: /home/runner/work/land-armv7-xnu/land-armv7-xnu
+probe	Clone the xnu tree	2026-10-28T17:06:19.7518875Z ##[endgroup]
+probe	Clone the xnu tree	2026-10-28T17:06:19.7623600Z Cloning into '/home/runner/work/land-armv7-xnu/land-armv7-xnu/src'...
+probe	Clone the xnu tree	2026-10-28T17:06:21.0894597Z commit: e8f2dc9ae5f4214e8ba1d5ca13b408c34a671966 2026-10-17 18:40:27 +0300 Update README.md
+probe	Clone the xnu tree	2026-10-28T17:06:21.1075777Z 68M	.
+probe	Normalise line endings of build scripts	﻿2026-10-28T17:06:21.1120359Z ##[group]Run cd "$WS/src"
+probe	Normalise line endings of build scripts	2026-10-28T17:06:21.1120695Z ^[[36;1mcd "$WS/src"^[[0m
+probe	Normalise line endings of build scripts	2026-10-28T17:06:21.1121095Z ^[[36;1mfind . -type f \( -name '*.sh' -o -name 'Makefile' -o -name 'MakeInc*' -o -name '*.mk' \^[[0m
+probe	Normalise line endings of build scripts	2026-10-28T17:06:21.1121843Z ^[[36;1m     -o -name 'xnu-build' -o -name 'config' -o -name '*.defs' \) -print0 \^[[0m
+probe	Normalise line endings of build scripts	2026-10-28T17:06:21.1122362Z ^[[36;1m  | xargs -0 sed -i 's/\r$//'^[[0m
+probe	Normalise line endings of build scripts	2026-10-28T17:06:21.1122626Z ^[[36;1mecho "fixed"^[[0m
+probe	Normalise line endings of build scripts	2026-10-28T17:06:21.1188558Z shell: /usr/bin/bash -e {0}
+probe	Normalise line endings of build scripts	2026-10-28T17:06:21.1188814Z env:
+probe	Normalise line endings of build scripts	2026-10-28T17:06:21.1189058Z   WS: /home/runner/work/land-armv7-xnu/land-armv7-xnu
+probe	Normalise line endings of build scripts	2026-10-28T17:06:21.1189370Z ##[endgroup]
+probe	Normalise line endings of build scripts	2026-10-28T17:06:21.1761200Z fixed
+probe	Report tool availability	﻿2026-10-28T17:06:21.1795502Z ##[group]Run export PATH="$WS/machdeps/usr/bin:$PATH"
+probe	Report tool availability	2026-10-28T17:06:21.1795964Z ^[[36;1mexport PATH="$WS/machdeps/usr/bin:$PATH"^[[0m
+probe	Report tool availability	2026-10-28T17:06:21.1796440Z ^[[36;1mfor t in mig arm-apple-darwin11-ld arm-apple-darwin11-as arm-apple-darwin11-ar \^[[0m
+probe	Report tool availability	2026-10-28T17:06:21.1797302Z ^[[36;1m         arm-apple-darwin11-libtool arm-apple-darwin11-nm; do^[[0m
+probe	Report tool availability	2026-10-28T17:06:21.1797666Z ^[[36;1m  echo "===== $t"^[[0m
+probe	Report tool availability	2026-10-28T17:06:21.1797903Z ^[[36;1m  "$t" -v 2>&1 | head -4^[[0m
+probe	Report tool availability	2026-10-28T17:06:21.1798155Z ^[[36;1m  echo "exit $?"^[[0m
+probe	Report tool availability	2026-10-28T17:06:21.1798369Z ^[[36;1mdone^[[0m
+probe	Report tool availability	2026-10-28T17:06:21.1798613Z ^[[36;1mecho "===== clang can emit Mach-O armv7 objects?"^[[0m
+probe	Report tool availability	2026-10-28T17:06:21.1798961Z ^[[36;1mprintf 'int f(void){return 7;}\n' > /tmp/t.c^[[0m
+probe	Report tool availability	2026-10-28T17:06:21.1799438Z ^[[36;1mclang-14 -target armv7-apple-ios6.1 -march=armv7 -mfloat-abi=softfp -mfpu=vfp3 \^[[0m
+probe	Report tool availability	2026-10-28T17:06:21.1799910Z ^[[36;1m  -c /tmp/t.c -o /tmp/t.o && file /tmp/t.o^[[0m
+probe	Report tool availability	2026-10-28T17:06:21.1800231Z ^[[36;1mecho "===== ld64 links such an object?"^[[0m
+probe	Report tool availability	2026-10-28T17:06:21.1800595Z ^[[36;1mprintf 'int main(void){return 0;}\n' > /tmp/m.c^[[0m
+probe	Report tool availability	2026-10-28T17:06:21.1801026Z ^[[36;1mclang-14 -target armv7-apple-ios6.1 -march=armv7 -c /tmp/m.c -o /tmp/m.o^[[0m
+probe	Report tool availability	2026-10-28T17:06:21.1801556Z ^[[36;1marm-apple-darwin11-ld -arch armv7 -r -o /tmp/m.link /tmp/m.o 2>&1 | head -5^[[0m
+probe	Report tool availability	2026-10-28T17:06:21.1801970Z ^[[36;1mfile /tmp/m.link 2>&1 | head -2^[[0m
+probe	Report tool availability	2026-10-28T17:06:21.1869807Z shell: /usr/bin/bash -e {0}
+probe	Report tool availability	2026-10-28T17:06:21.1870212Z env:
+probe	Report tool availability	2026-10-28T17:06:21.1870549Z   WS: /home/runner/work/land-armv7-xnu/land-armv7-xnu
+probe	Report tool availability	2026-10-28T17:06:21.1870886Z ##[endgroup]
+probe	Report tool availability	2026-10-28T17:06:21.1968332Z ===== mig
+probe	Report tool availability	2026-10-28T17:06:21.2200011Z /home/runner/work/land-armv7-xnu/land-armv7-xnu/machdeps/usr/bin/mig: 103: Syntax error: "(" unexpected (expecting ";;")
+probe	Report tool availability	2026-10-28T17:06:21.2200856Z exit 0
+probe	Report tool availability	2026-10-28T17:06:21.2201240Z ===== arm-apple-darwin11-ld
+probe	Report tool availability	2026-10-28T17:06:21.2235080Z arm-apple-darwin11-ld: error while loading shared libraries: libcrypto.so.1.0.0: cannot open shared object file: No such file or directory
+probe	Report tool availability	2026-10-28T17:06:21.2236185Z exit 0
+probe	Report tool availability	2026-10-28T17:06:21.2236420Z ===== arm-apple-darwin11-as
+probe	Report tool availability	2026-10-28T17:06:21.3868877Z Apple Inc version cctools-836, GNU assembler version 1.38
+probe	Report tool availability	2026-10-28T17:06:21.3870000Z exit 0
+probe	Report tool availability	2026-10-28T17:06:21.3870546Z ===== arm-apple-darwin11-ar
+probe	Report tool availability	2026-10-28T17:06:21.3888239Z usage:  ar -d [-TLsv] archive file ...
+probe	Report tool availability	2026-10-28T17:06:21.3888868Z 	ar -m [-TLsv] archive file ...
+probe	Report tool availability	2026-10-28T17:06:21.3889330Z 	ar -m [-abiTLsv] position archive file ...
+probe	Report tool availability	2026-10-28T17:06:21.3889645Z 	ar -p [-TLsv] archive [file ...]
+probe	Report tool availability	2026-10-28T17:06:21.3889886Z exit 0
+probe	Report tool availability	2026-10-28T17:06:21.3890093Z ===== arm-apple-darwin11-libtool
+probe	Report tool availability	2026-10-28T17:06:21.3906475Z arm-apple-darwin11-libtool: no output file specified (specify with -o output)
+probe	Report tool availability	2026-10-28T17:06:21.3907696Z Usage: arm-apple-darwin11-libtool -static [-] file [...] [-filelist listfile[,dirname]] [-arch_only arch] [-sacLT]
+probe	Report tool availability	2026-10-28T17:06:21.3909956Z Usage: arm-apple-darwin11-libtool -dynamic [-] file [...] [-filelist listfile[,dirname]] [-arch_only arch] [-o output] [-install_name name] [-compatibility_version #] [-current_version #] [-seg1addr 0x#] [-segs_read_only_addr 0x#] [-segs_read_write_addr 0x#] [-seg_addr_table <filename>] [-seg_addr_table_filename <file_system_path>] [-all_load] [-noall_load]
+probe	Report tool availability	2026-10-28T17:06:21.3912627Z exit 0
+probe	Report tool availability	2026-10-28T17:06:21.3912967Z ===== arm-apple-darwin11-nm
+probe	Report tool availability	2026-10-28T17:06:21.3925357Z arm-apple-darwin11-nm: no name list
+probe	Report tool availability	2026-10-28T17:06:21.3927302Z exit 0
+probe	Report tool availability	2026-10-28T17:06:21.3927824Z ===== clang can emit Mach-O armv7 objects?
+probe	Report tool availability	2026-10-28T17:06:22.8415764Z /tmp/t.o: Mach-O armv7 object, flags:<|SUBSECTIONS_VIA_SYMBOLS>
+probe	Report tool availability	2026-10-28T17:06:22.8417445Z ===== ld64 links such an object?
+probe	Report tool availability	2026-10-28T17:06:22.8717768Z arm-apple-darwin11-ld: error while loading shared libraries: libcrypto.so.1.0.0: cannot open shared object file: No such file or directory
+probe	Report tool availability	2026-10-28T17:06:22.8735485Z /tmp/m.link: cannot open `/tmp/m.link' (No such file or directory)
+probe	Show how this tree selects its tools	﻿2026-10-28T17:06:22.8774197Z ##[group]Run cd "$WS/src/xnu"
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8774542Z ^[[36;1mcd "$WS/src/xnu"^[[0m
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8774822Z ^[[36;1mecho "=== machine_configuration ==="^[[0m
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8775143Z ^[[36;1mif [ -d machine_configuration ]; then^[[0m
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8775569Z ^[[36;1m  ls machine_configuration; ls machine_configuration/md 2>/dev/null | head -30^[[0m
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8775983Z ^[[36;1melse^[[0m
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8776186Z ^[[36;1m  cat machine_configuration^[[0m
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8776429Z ^[[36;1mfi^[[0m
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8776640Z ^[[36;1mecho "=== pexpert arm configs ==="^[[0m
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8777311Z ^[[36;1mls pexpert/pexpert/arm | head -40^[[0m
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8777656Z ^[[36;1mecho "=== tool names referenced by makedefs ==="^[[0m
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8778332Z ^[[36;1mgrep -rn "darwin11\|cctools\|TOOLCHAINS\|^\s*LD\s*=\|CC\s*=\|libtool\|^\s*AS\s*=" makedefs/*.cmd makedefs/*.defs makedefs/MakeInc* 2>/dev/null | head -40^[[0m
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8778986Z ^[[36;1mecho "=== top Makefile: what it does ==="^[[0m
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8779308Z ^[[36;1mhead -60 Makefile^[[0m
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8842369Z shell: /usr/bin/bash -e {0}
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8842621Z env:
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8842872Z   WS: /home/runner/work/land-armv7-xnu/land-armv7-xnu
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8843190Z ##[endgroup]
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8926309Z === machine_configuration ===
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8938813Z debug arm omap335x
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8939204Z debug arm omap3530
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8939542Z debug arm armpba8
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8939849Z debug arm s5l8930x
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8940060Z debug arm s5l8920x
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8940381Z debug arm s5l8922x
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8940721Z debug arm omap3430_rx51
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8941103Z development arm omap335x
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8941490Z development arm omap3530
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8941877Z development arm armpba8
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8942243Z development arm s5l8930x
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8942612Z development arm s5l8920x
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8942980Z development arm s5l8922x
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8943393Z development arm omap3430_rx51
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8943787Z release arm omap335x
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8944148Z release arm omap3530
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8944491Z release arm armpba8
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8944696Z release arm s5l8930x
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8944901Z release arm s5l8920x
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8945097Z release arm s5l8922x
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8945300Z release arm omap3430_rx51
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8945542Z === pexpert arm configs ===
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8957136Z Makefile
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8957472Z boot.h
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8957764Z j1_entry.h
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8958000Z j1_handoff.h
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8958328Z leo_entry.h
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8958642Z leo_handoff.h
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8958968Z protos.h
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8959488Z === tool names referenced by makedefs ===
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8987890Z makedefs/MakeInc.cmd:115:		export LIBTOOL := $(shell $(XCRUN) -sdk $(SDKROOT) -find libtool)
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8989140Z makedefs/MakeInc.cmd:252:		export LIBTOOL := $(shell $(XCRUN) -sdk $(SDKROOT) -find libtool)
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8992022Z makedefs/MakeInc.cmd:115:		export LIBTOOL := $(shell $(XCRUN) -sdk $(SDKROOT) -find libtool)
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8993386Z makedefs/MakeInc.cmd:252:		export LIBTOOL := $(shell $(XCRUN) -sdk $(SDKROOT) -find libtool)
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8994158Z makedefs/MakeInc.def:465:AS	= $(CC)
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8994620Z makedefs/MakeInc.def:466:S_KCC	= $(CC)
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8995115Z makedefs/MakeInc.def:494:LD	= $(KC++) -nostdlib
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.8995618Z === top Makefile: what it does ===
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9000530Z ifndef VERSDIR
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9000904Z export VERSDIR=$(shell /bin/pwd)
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9001306Z endif
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9001594Z ifndef SRCROOT
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9001966Z export SRCROOT=$(shell /bin/pwd)
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9002471Z endif
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9002763Z ifndef OBJROOT
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9003119Z export OBJROOT=$(SRCROOT)/BUILD/obj/
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9003542Z endif
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9003895Z ifndef DSTROOT
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9004559Z export DSTROOT=$(SRCROOT)/BUILD/dst/
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9004984Z endif
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9005220Z ifndef SYMROOT
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9005443Z export SYMROOT=$(SRCROOT)/BUILD/sym/
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9005674Z endif
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9005770Z 
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9005895Z export MakeInc_cmd=${VERSDIR}/makedefs/MakeInc.cmd
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9006238Z export MakeInc_def=${VERSDIR}/makedefs/MakeInc.def
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9006575Z export MakeInc_rule=${VERSDIR}/makedefs/MakeInc.rule
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9007364Z export MakeInc_dir=${VERSDIR}/makedefs/MakeInc.dir
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9007598Z 
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9007603Z 
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9007692Z include $(MakeInc_cmd)
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9007902Z include $(MakeInc_def)
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9008029Z 
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9008109Z ALL_SUBDIRS = \
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9008295Z 	iokit \
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9008461Z 	osfmk \
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9008625Z 	bsd  \
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9008797Z 	pexpert \
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9008970Z 	libkern \
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9009146Z 	libsa \
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9009312Z 	security
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9009420Z 
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9009514Z CONFIG_SUBDIRS_I386 = config
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9009749Z CONFIG_SUBDIRS_X86_64 = config
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9009983Z CONFIG_SUBDIRS_ARM = config
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9010211Z CONFIG_SUBDIRS_ARM64 = config
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9010356Z 
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9010478Z INSTINC_SUBDIRS = $(ALL_SUBDIRS) EXTERNAL_HEADERS
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9010780Z INSTINC_SUBDIRS_I386 = $(INSTINC_SUBDIRS)
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9011058Z INSTINC_SUBDIRS_X86_64 = $(INSTINC_SUBDIRS)
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9011335Z INSTINC_SUBDIRS_ARM = $(INSTINC_SUBDIRS)
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9011611Z INSTINC_SUBDIRS_ARM64 = $(INSTINC_SUBDIRS)
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9011797Z 
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9011892Z EXPINC_SUBDIRS = $(ALL_SUBDIRS)
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9012141Z EXPINC_SUBDIRS_I386 = $(EXPINC_SUBDIRS)
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9012412Z EXPINC_SUBDIRS_X86_64 = $(EXPINC_SUBDIRS)
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9012681Z EXPINC_SUBDIRS_ARM = $(EXPINC_SUBDIRS)
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9012950Z EXPINC_SUBDIRS_ARM64 = $(EXPINC_SUBDIRS)
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9013134Z 
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9013216Z SETUP_SUBDIRS = SETUP
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9013347Z 
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9013434Z COMP_SUBDIRS_I386 = $(ALL_SUBDIRS)
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9013676Z COMP_SUBDIRS_X86_64 = $(ALL_SUBDIRS)
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9013923Z COMP_SUBDIRS_ARM = $(ALL_SUBDIRS)
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9014167Z COMP_SUBDIRS_ARM64 = $(ALL_SUBDIRS)
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9014329Z 
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9014408Z INST_SUBDIRS =	\
+probe	Show how this tree selects its tools	2026-10-28T17:06:22.9014590Z 	libkern	\
+probe	Attempt the build (failure is information, not an error)	﻿2026-10-28T17:06:22.9045895Z ##[group]Run cd "$WS/src/xnu"
+probe	Attempt the build (failure is information, not an error)	2026-10-28T17:06:22.9046202Z ^[[36;1mcd "$WS/src/xnu"^[[0m
+probe	Attempt the build (failure is information, not an error)	2026-10-28T17:06:22.9046467Z ^[[36;1mexport PATH="$WS/machdeps/usr/bin:$PATH"^[[0m
+probe	Attempt the build (failure is information, not an error)	2026-10-28T17:06:22.9047177Z ^[[36;1mexport CC=clang-14 CXX=clang++-14 HOST_CC=clang-14^[[0m
+probe	Attempt the build (failure is information, not an error)	2026-10-28T17:06:22.9047707Z ^[[36;1mexport SRCROOT="$PWD" OBJROOT="$WS/obj" DSTROOT="$WS/dst" SYMROOT="$WS/sym"^[[0m
+probe	Attempt the build (failure is information, not an error)	2026-10-28T17:06:22.9048151Z ^[[36;1mmkdir -p "$OBJROOT" "$DSTROOT" "$SYMROOT"^[[0m
+probe	Attempt the build (failure is information, not an error)	2026-10-28T17:06:22.9048562Z ^[[36;1mmake TARGET_CONFIGS="debug arm armpba8" > "$WS/build.log" 2>&1^[[0m
+probe	Attempt the build (failure is information, not an error)	2026-10-28T17:06:22.9049154Z ^[[36;1mecho "make exit: $?"^[[0m
+probe	Attempt the build (failure is information, not an error)	2026-10-28T17:06:22.9049415Z ^[[36;1mwc -l "$WS/build.log"^[[0m
+probe	Attempt the build (failure is information, not an error)	2026-10-28T17:06:22.9049662Z ^[[36;1mecho "=== first errors ==="^[[0m
+probe	Attempt the build (failure is information, not an error)	2026-10-28T17:06:22.9050078Z ^[[36;1mgrep -n -m 40 -E "error|Error|No such file|not found|Stop\." "$WS/build.log" | head -40^[[0m
+probe	Attempt the build (failure is information, not an error)	2026-10-28T17:06:22.9050504Z ^[[36;1mecho "=== tail ==="^[[0m
+probe	Attempt the build (failure is information, not an error)	2026-10-28T17:06:22.9050736Z ^[[36;1mtail -60 "$WS/build.log"^[[0m
+probe	Attempt the build (failure is information, not an error)	2026-10-28T17:06:22.9114946Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+probe	Attempt the build (failure is information, not an error)	2026-10-28T17:06:22.9115293Z env:
+probe	Attempt the build (failure is information, not an error)	2026-10-28T17:06:22.9115537Z   WS: /home/runner/work/land-armv7-xnu/land-armv7-xnu
+probe	Attempt the build (failure is information, not an error)	2026-10-28T17:06:22.9115845Z ##[endgroup]
+probe	Attempt the build (failure is information, not an error)	2026-10-28T17:06:23.9828277Z ##[error]Process completed with exit code 2.
+probe	Upload the build log	﻿2026-10-28T17:06:23.9929594Z ##[group]Run actions/upload-artifact@v4
+probe	Upload the build log	2026-10-28T17:06:23.9929905Z with:
+probe	Upload the build log	2026-10-28T17:06:23.9930097Z   name: armv7-build-log
+probe	Upload the build log	2026-10-28T17:06:23.9930403Z   path: /home/runner/work/land-armv7-xnu/land-armv7-xnu/build.log
+probe	Upload the build log	2026-10-28T17:06:23.9930769Z   if-no-files-found: ignore
+probe	Upload the build log	2026-10-28T17:06:23.9931008Z   compression-level: 6
+probe	Upload the build log	2026-10-28T17:06:23.9931215Z   overwrite: false
+probe	Upload the build log	2026-10-28T17:06:23.9931419Z   include-hidden-files: false
+probe	Upload the build log	2026-10-28T17:06:23.9931643Z env:
+probe	Upload the build log	2026-10-28T17:06:23.9931866Z   WS: /home/runner/work/land-armv7-xnu/land-armv7-xnu
+probe	Upload the build log	2026-10-28T17:06:23.9932155Z ##[endgroup]
+probe	Upload the build log	2026-10-28T17:06:24.1772829Z (node:4949) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+probe	Upload the build log	2026-10-28T17:06:24.1773841Z (Use `node --trace-deprecation ...` to show where the warning was created)
+probe	Upload the build log	2026-10-28T17:06:24.1868005Z With the provided path, there will be 1 file uploaded
+probe	Upload the build log	2026-10-28T17:06:24.1927806Z Artifact name is valid!
+probe	Upload the build log	2026-10-28T17:06:24.1942657Z Root directory input is valid!
+probe	Upload the build log	2026-10-28T17:06:24.5830139Z Beginning upload of artifact content to blob storage
+probe	Upload the build log	2026-10-28T17:06:24.6106571Z (node:4949) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+probe	Upload the build log	2026-10-28T17:06:24.9077904Z Uploaded bytes 2898
+probe	Upload the build log	2026-10-28T17:06:24.9863862Z Finished uploading artifact content to blob storage!
+probe	Upload the build log	2026-10-28T17:06:24.9865407Z SHA256 digest of uploaded artifact zip is 6f6cd6ddd1aa2630c8b1061bd9f8319b12db474613a887c3027c84305c5695c3
+probe	Upload the build log	2026-10-28T17:06:24.9866546Z Finalizing artifact upload
+probe	Upload the build log	2026-10-28T17:06:25.4739248Z Artifact armv7-build-log.zip successfully finalized. Artifact ID 12835033397
+probe	Upload the build log	2026-10-28T17:06:25.4740766Z Artifact armv7-build-log has been successfully uploaded! Final size is 2898 bytes. Artifact ID is 12835033397
+probe	Upload the build log	2026-10-28T17:06:25.4746347Z Artifact download URL: https://github.com/sewerdev/land-armv7-xnu/actions/runs/40732407576/artifacts/12835033397
+probe	Post Run actions/checkout@v4	﻿2026-10-28T17:06:25.4965767Z Post job cleanup.
+probe	Post Run actions/checkout@v4	2026-10-28T17:06:25.5959884Z [command]/usr/bin/git version
+probe	Post Run actions/checkout@v4	2026-10-28T17:06:25.6007279Z git version 2.56.0
+probe	Post Run actions/checkout@v4	2026-10-28T17:06:25.6049158Z Temporarily overriding HOME='/home/runner/work/_temp/9bce52da-b4a0-443c-ba3e-9daec9452563' before making global git config changes
+probe	Post Run actions/checkout@v4	2026-10-28T17:06:25.6050653Z Adding repository directory to the temporary git global config as a safe directory
+probe	Post Run actions/checkout@v4	2026-10-28T17:06:25.6055613Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/land-armv7-xnu/land-armv7-xnu
+probe	Post Run actions/checkout@v4	2026-10-28T17:06:25.6102875Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+probe	Post Run actions/checkout@v4	2026-10-28T17:06:25.6151858Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+probe	Post Run actions/checkout@v4	2026-10-28T17:06:25.6507997Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+probe	Post Run actions/checkout@v4	2026-10-28T17:06:25.6539503Z http.https://github.com/.extraheader
+probe	Post Run actions/checkout@v4	2026-10-28T17:06:25.6553113Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+probe	Post Run actions/checkout@v4	2026-10-28T17:06:25.6614065Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+probe	Post Run actions/checkout@v4	2026-10-28T17:06:25.6947966Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+probe	Post Run actions/checkout@v4	2026-10-28T17:06:25.6968853Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+probe	Complete job	﻿2026-10-28T17:06:25.7434098Z Cleaning up orphan processes
+probe	Complete job	2026-10-28T17:06:25.7887402Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

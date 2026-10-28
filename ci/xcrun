@@ -1,0 +1,67 @@
+#!/bin/bash
+# xcrun replacement for building XNU's armv7 kernel on a Linux host.
+#
+# makedefs/MakeInc.cmd (Linux branch) resolves every cross tool through
+# `/usr/bin/xcrun -sdk <path> -find <tool>`, so this only has to answer those
+# questions. Anything it cannot name is logged, so a failed build tells us
+# exactly which tool the tree still wants.
+set -u
+
+SDK="${XNU_SDK:-/opt/xnu-sdk}"
+TOOLDIR="${XNU_TOOLDIR:-/opt/machdeps/usr/bin}"
+LOG="${XCRUN_LOG:-/tmp/xcrun.log}"
+
+find_tool() {
+    case "$1" in
+    clang) echo "${CLANG:-/usr/bin/clang-14}" ;;
+    clang++) echo "${CLANGXX:-/usr/bin/clang++-14}" ;;
+    ld | as | strip | lipo | libtool | nm | nmedit | ar | size | strings |
+        otool | install_name_tool | codesign_allocate | segedit | seg_hack |
+        seg_addr_table | dyldinfo | indr | ObjectDump | machochecker | pagestuff |
+        unwinddump | checksyms | redo_prebinding | ranlib)
+        echo "$TOOLDIR/arm-apple-darwin11-$1" ;;
+    mig) echo /usr/bin/mig ;;
+    unifdef)
+        command -v unifdef 2>/dev/null || echo /usr/bin/unifdef ;;
+    setsegname | kextsymboltool)
+        # not shipped by cctools-port; nothing in the kernel build can use them
+        echo /bin/true ;;
+    flex | bison | gnutar | install) echo "/usr/bin/$1" ;;
+    dsymutil | vtool | bitcode*) echo /bin/true ;;
+    *)
+        if [ -x "$TOOLDIR/arm-apple-darwin11-$1" ]; then
+            echo "$TOOLDIR/arm-apple-darwin11-$1"
+        elif command -v "$1" >/dev/null 2>&1; then
+            command -v "$1"
+        else
+            echo "xcrun-shim: no tool for '$1'" >&2
+            echo "find $1" >>"$LOG"
+            echo "/bin/true"
+        fi ;;
+    esac
+}
+
+answer=""
+while [ $# -gt 0 ]; do
+    case "$1" in
+    -sdk | --sdk) shift ;;
+    -find | --find)
+        shift
+        answer="$(find_tool "${1:-}")" ;;
+    --show-sdk-path | -show-sdk-path) echo "$SDK"; exit 0 ;;
+    --show-sdk-platform-path | -show-sdk-platform-path) echo "$SDK"; exit 0 ;;
+    -sdk_version | --sdk-version | -version | --version)
+        echo "Path: $SDK"; echo "Version: 6.1"; exit 0 ;;
+    -run | --run) shift; exec "$@" ;;
+    -verbose | -log | -n | --no-lock | -arch) ;;
+    *) echo "unhandled arg: $1" >>"$LOG" ;;
+    esac
+    shift
+done
+
+if [ -n "$answer" ]; then
+    echo "$answer"
+    exit 0
+fi
+echo "xcrun-shim: no -find in: $*" >>"$LOG"
+exit 0

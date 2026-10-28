@@ -1,0 +1,105 @@
+name: armv7-xnu-build
+description: Build an ARMv7 XNU kernel on a Linux host with the Mach-O cctools toolchain
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo:
+        description: xnu tree
+        default: https://github.com/kOtusin/xnu-j1xlte
+        required: true
+      subdir:
+        description: XNU root inside the clone
+        default: xnu
+        required: false
+      target:
+        description: TARGET_CONFIGS
+        default: debug arm armpba8
+        required: false
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 60
+    env:
+      WS: ${{ github.workspace }}
+      TOOLDIR: /opt/machdeps/usr/bin
+      XNU_SDK: /opt/xnu-sdk
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Host packages
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libc6-i386 lib32stdc++6 lib32z1 lib32gcc-s1 \
+            clang-14 bison flex unifdef patchutils xz-utils dpkg-dev file python3
+          clang-14 --version | head -1
+
+      - name: Old libcrypto for the 32-bit cctools ld
+        run: |
+          pool=http://archive.ubuntu.com/ubuntu/pool/main/o/openssl1.0
+          deb=$(curl -s "$pool/" | grep -o 'libssl1.0.0_[0-9a-zA-Z.+-]*_i386.deb' | sort -u | tail -1)
+          echo "picking $deb"
+          curl -sfS -o "$deb" "$pool/$deb"
+          dpkg-deb -x "$deb" "$WS/cryptolib"
+          ls -l "$WS/cryptolib/usr/lib/i386-linux-gnu" | head
+          echo "LD_LIBRARY_PATH=$WS/cryptolib/usr/lib/i386-linux-gnu" >> "$GITHUB_ENV"
+
+      - name: Install the Mach-O toolchain
+        run: |
+          sudo mkdir -p /opt/machdeps
+          tar -xJf machdeps.tar.xz -C /opt/machdeps
+          sudo chmod 755 /opt/machdeps/usr/bin/* /opt/machdeps/usr/libexec/migcom 2>/dev/null || true
+          sudo cp /opt/machdeps/usr/libexec/migcom /usr/libexec/migcom 2>/dev/null || \
+            { sudo mkdir -p /usr/libexec && sudo cp /opt/machdeps/usr/libexec/migcom /usr/libexec/migcom; }
+          sed -i 's/\r$//' ci/xcrun
+          sudo install -m 755 ci/xcrun /usr/bin/xcrun
+          printf '#!/bin/bash\nexec /bin/bash /opt/machdeps/usr/bin/mig "$@"\n' | sudo tee /usr/bin/mig >/dev/null
+          sudo chmod 755 /usr/bin/mig
+          sudo ln -sf /usr/bin/tar /usr/bin/gnutar
+          echo "=== xcrun answers ==="
+          /usr/bin/xcrun --show-sdk-path
+          /usr/bin/xcrun -sdk / -find ld
+          /usr/bin/xcrun -sdk / -find clang
+          /usr/bin/xcrun -sdk / -find mig
+          "$TOOLDIR/arm-apple-darwin11-ld" -v 2>&1 | head -3
+
+      - name: Stage the SDK shim
+        run: |
+          sudo mkdir -p /opt/xnu-sdk
+          tar -xzf sdk-shim.tar.gz -C /opt/xnu-sdk
+          find /opt/xnu-sdk -maxdepth 3 -type d | head -20
+
+      - name: Clone the xnu tree
+        run: |
+          git clone --depth 1 "${{ inputs.repo }}" "$WS/src"
+          cd "$WS/src" && git log -1 --format='%H %ci %s'
+          find . -type f \( -name '*.sh' -o -name 'Makefile' -o -name 'MakeInc*' -o -name '*.mk' \
+               -o -name 'xnu-build' -o -name 'config' \) -print0 | xargs -0 sed -i 's/\r$//'
+
+      - name: Build
+        continue-on-error: true
+        run: |
+          cd "$WS/src/${{ inputs.subdir }}"
+          export CC=clang-14 CXX=clang++-14
+          export SRCROOT="$PWD" OBJROOT="$WS/obj" DSTROOT="$WS/dst" SYMROOT="$WS/sym"
+          mkdir -p "$OBJROOT" "$DSTROOT" "$SYMROOT"
+          make TARGET_CONFIGS="${{ inputs.target }}" > "$WS/build.log" 2>&1
+          echo "make exit $?"; wc -l "$WS/build.log"
+          echo "=== first lines ==="; head -25 "$WS/build.log"
+          echo "=== errors ==="; grep -n -m 60 -E "error|Error [0-9]|No such file|not found|Stop\.|undefined" "$WS/build.log"
+          echo "=== tail ==="; tail -40 "$WS/build.log"
+          echo "=== kernel objects produced ==="
+          find "$OBJROOT" -name "*.o" | wc -l
+          find "$OBJROOT" -name "mach_kernel*" -o -name "*.linkmap" | head
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: armv7-logs
+          path: |
+            ${{ github.workspace }}/build.log
+            /tmp/xcrun.log
+          if-no-files-found: ignore
