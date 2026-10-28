@@ -68,7 +68,8 @@ jobs:
       - name: Stage the SDK shim
         run: |
           sudo mkdir -p /opt/xnu-sdk
-          tar -xzf sdk-shim.tar.gz -C /opt/xnu-sdk
+          sudo tar -xzf sdk-shim.tar.gz -C /opt/xnu-sdk
+          sudo chmod -R a+rX /opt/xnu-sdk
           find /opt/xnu-sdk -maxdepth 3 -type d | head -20
 
       - name: Clone the xnu tree
@@ -77,6 +78,14 @@ jobs:
           cd "$WS/src" && git log -1 --format='%H %ci %s'
           find . -type f \( -name '*.sh' -o -name 'Makefile' -o -name 'MakeInc*' -o -name '*.mk' \
                -o -name 'xnu-build' -o -name 'config' \) -print0 | xargs -0 sed -i 's/\r$//'
+          cd "${{ inputs.subdir }}"
+          echo "=== how the build uses MD ==="
+          grep -rn '\$(MD)' makedefs/MakeInc.dir makedefs/MakeInc.rule Makefile 2>/dev/null | head -20
+          echo "=== config/ and machine_configuration ==="
+          ls config | head -30
+          cat machine_configuration | head -8
+          echo "=== pexpert headers present ==="
+          ls pexpert/pexpert/arm pexpert/arm | head -40
 
       - name: Build
         continue-on-error: true
