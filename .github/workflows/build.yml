@@ -98,9 +98,13 @@ jobs:
           # makedefs only builds the SETUP host tools on Darwin, but the kernel
           # object rule needs SEG_HACK (setsegname) on every platform.
           mkdir -p "$OBJROOT/SETUP/setsegname" "$OBJROOT/SETUP/kextsymboltool"
-          clang-14 -O1 -I"$PWD/EXTERNAL_HEADERS" -o "$OBJROOT/SETUP/setsegname/setsegname" \
-              "$PWD/SETUP/setsegname/setsegname.c" && echo "setsegname built"
-          clang-14 -O1 -I"$PWD/EXTERNAL_HEADERS" -I"$PWD" \
+          # EXTERNAL_HEADERS must come *after* the host headers: it carries its
+          # own stdint.h that expects the target's machine/types.h.
+          clang-14 -O1 -idirafter "$PWD/EXTERNAL_HEADERS" \
+              -o "$OBJROOT/SETUP/setsegname/setsegname" \
+              "$PWD/SETUP/setsegname/setsegname.c" \
+              && echo "setsegname built" || echo "setsegname FAILED"
+          clang-14 -O1 -idirafter "$PWD/EXTERNAL_HEADERS" -I"$PWD" \
               -o "$OBJROOT/SETUP/kextsymboltool/kextsymboltool" \
               "$PWD/SETUP/kextsymboltool/kextsymboltool.c" \
               || echo "kextsymboltool skipped (only needed for static kmods)"
