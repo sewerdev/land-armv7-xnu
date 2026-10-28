@@ -1,4 +1,6 @@
 *.yml -text
 *.patch -text
 *.tar.xz binary
+*.tar.gz binary
 ci/xcrun -text
+*.sh -text
