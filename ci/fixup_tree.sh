@@ -36,7 +36,9 @@ open_gate = (
     "\t# defines cannot be gated on it.  The extra -I roots are where the HD2\n"
     "\t# headers live: they are included by bare name from other components.\n"
     "\tBUILD_NO_DEBUG := 1\n"
-    "\tRC_CFLAGS := -D__arm__ -DARM -Wno-error -Wno-undef-prefix "
+    "\tRC_CFLAGS := -D__arm__ -DARM -DAPPLE -DKERNEL -DKERNEL_PRIVATE "
+    "-DXNU_KERNEL_PRIVATE -D__APPLE_API_PRIVATE=1 -D__APPLE_API_UNSTABLE=1 "
+    "-Wno-error -Wno-undef-prefix "
     "-I$(SRCROOT)/osfmk/kern -I$(SRCROOT)/osfmk/ipc "
     "-I$(SRCROOT)/iokit/Drivers/KernelBuiltIn/ARM/AppleARMPlatform "
     "-I$(SRCROOT)/pexpert/arm -I$(SRCROOT)/bsd/dev/arm\n"
@@ -56,13 +58,3 @@ else:
             break
     sys.exit("MakeInc.def: expected RC_CFLAGS block not found; adapt the patch")
 PY
-
-# osfmk/kdp/kdp.c dereferences struct mem_and_io_snapshot and uses the
-# STACKSHOT_* constants, but the published export carries no bsd/sys/stackshot.h.
-if [ ! -e "$root/bsd/sys/stackshot.h" ]; then
-    cidir="${2:-$(dirname "$(readlink -f "$0")")}"
-    install -m 644 "$cidir/tree/bsd_sys_stackshot.h" "$root/bsd/sys/stackshot.h"
-    echo "restored bsd/sys/stackshot.h"
-else
-    echo "bsd/sys/stackshot.h already present"
-fi
