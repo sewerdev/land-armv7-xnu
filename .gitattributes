@@ -1,0 +1,3 @@
+*.yml -text
+*.patch -text
+*.tar.xz binary

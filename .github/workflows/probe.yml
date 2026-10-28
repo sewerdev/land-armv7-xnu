@@ -1,0 +1,124 @@
+name: armv7-xnu-probe
+description: Clone the ARMv7 XNU tree, wire the Linux Mach-O toolchain, and report what the build actually needs
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo:
+        description: xnu tree to build
+        default: https://github.com/kOtusin/xnu-j1xlte
+        required: true
+      subdir:
+        description: path inside the clone that holds the XNU root
+        default: xnu
+        required: false
+      target:
+        description: TARGET_CONFIGS line
+        default: debug arm armpba8
+        required: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 40
+    env:
+      WS: ${{ github.workspace }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install host packages
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libc6-i386 lib32stdc++6 lib32z1 lib32gcc-s1 \
+            clang-14 bison flex patchutils xz-utils file python3
+          echo "clang: $(clang-14 --version | head -1)"
+
+      - name: Unpack the Mach-O toolchain (machdeps)
+        run: |
+          mkdir -p "$WS/machdeps"
+          tar -xJf machdeps.tar.xz -C "$WS/machdeps"
+          echo "=== tree ==="
+          find "$WS/machdeps" -maxdepth 3 -type d | head -20
+          echo "=== binaries ==="
+          ls "$WS/machdeps/usr/bin" 2>/dev/null | head -40 || ls "$WS/machdeps" | head -40
+          echo "=== file types ==="
+          for t in mig ld as ar; do
+            b=$(find "$WS/machdeps" -name "*-$t" -o -name "$t" | head -1)
+            [ -n "$b" ] && { echo "-- $b"; file "$b"; }
+          done
+
+      - name: Clone the xnu tree
+        run: |
+          git clone --depth 1 "${{ inputs.repo }}" "$WS/src"
+          cd "$WS/src"
+          echo "commit: $(git log -1 --format='%H %ci %s')"
+          du -sh .
+
+      - name: Normalise line endings of build scripts
+        run: |
+          cd "$WS/src"
+          find . -type f \( -name '*.sh' -o -name 'Makefile' -o -name 'MakeInc*' -o -name '*.mk' \
+               -o -name 'xnu-build' -o -name 'config' -o -name '*.defs' \) -print0 \
+            | xargs -0 sed -i 's/\r$//'
+          echo "fixed"
+
+      - name: Report tool availability
+        run: |
+          export PATH="$WS/machdeps/usr/bin:$PATH"
+          for t in mig arm-apple-darwin11-ld arm-apple-darwin11-as arm-apple-darwin11-ar \
+                   arm-apple-darwin11-libtool arm-apple-darwin11-nm; do
+            echo "===== $t"
+            "$t" -v 2>&1 | head -4
+            echo "exit $?"
+          done
+          echo "===== clang can emit Mach-O armv7 objects?"
+          printf 'int f(void){return 7;}\n' > /tmp/t.c
+          clang-14 -target armv7-apple-ios6.1 -march=armv7 -mfloat-abi=softfp -mfpu=vfp3 \
+            -c /tmp/t.c -o /tmp/t.o && file /tmp/t.o
+          echo "===== ld64 links such an object?"
+          printf 'int main(void){return 0;}\n' > /tmp/m.c
+          clang-14 -target armv7-apple-ios6.1 -march=armv7 -c /tmp/m.c -o /tmp/m.o
+          arm-apple-darwin11-ld -arch armv7 -r -o /tmp/m.link /tmp/m.o 2>&1 | head -5
+          file /tmp/m.link 2>&1 | head -2
+
+      - name: Show how this tree selects its tools
+        run: |
+          cd "$WS/src/${{ inputs.subdir }}"
+          echo "=== machine_configuration ==="
+          if [ -d machine_configuration ]; then
+            ls machine_configuration; ls machine_configuration/md 2>/dev/null | head -30
+          else
+            cat machine_configuration
+          fi
+          echo "=== pexpert arm configs ==="
+          ls pexpert/pexpert/arm | head -40
+          echo "=== tool names referenced by makedefs ==="
+          grep -rn "darwin11\|cctools\|TOOLCHAINS\|^\s*LD\s*=\|CC\s*=\|libtool\|^\s*AS\s*=" makedefs/*.cmd makedefs/*.defs makedefs/MakeInc* 2>/dev/null | head -40
+          echo "=== top Makefile: what it does ==="
+          head -60 Makefile
+
+      - name: Attempt the build (failure is information, not an error)
+        continue-on-error: true
+        run: |
+          cd "$WS/src/${{ inputs.subdir }}"
+          export PATH="$WS/machdeps/usr/bin:$PATH"
+          export CC=clang-14 CXX=clang++-14 HOST_CC=clang-14
+          export SRCROOT="$PWD" OBJROOT="$WS/obj" DSTROOT="$WS/dst" SYMROOT="$WS/sym"
+          mkdir -p "$OBJROOT" "$DSTROOT" "$SYMROOT"
+          make TARGET_CONFIGS="${{ inputs.target }}" > "$WS/build.log" 2>&1
+          echo "make exit: $?"
+          wc -l "$WS/build.log"
+          echo "=== first errors ==="
+          grep -n -m 40 -E "error|Error|No such file|not found|Stop\." "$WS/build.log" | head -40
+          echo "=== tail ==="
+          tail -60 "$WS/build.log"
+        shell: bash
+
+      - name: Upload the build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: armv7-build-log
+          path: ${{ github.workspace }}/build.log
+          if-no-files-found: ignore
