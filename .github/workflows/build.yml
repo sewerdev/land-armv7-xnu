@@ -55,6 +55,8 @@ jobs:
             { sudo mkdir -p /usr/libexec && sudo cp /opt/machdeps/usr/libexec/migcom /usr/libexec/migcom; }
           sed -i 's/\r$//' ci/xcrun
           sudo install -m 755 ci/xcrun /usr/bin/xcrun
+          sed -i 's/\r$//' ci/migcc
+          sudo install -m 755 ci/migcc /usr/local/bin/migcc
           printf '#!/bin/bash\nexec /bin/bash /opt/machdeps/usr/bin/mig "$@"\n' | sudo tee /usr/bin/mig >/dev/null
           sudo chmod 755 /usr/bin/mig
           sudo ln -sf /usr/bin/tar /usr/bin/gnutar
@@ -89,13 +91,18 @@ jobs:
         run: |
           cd "$WS/src/${{ inputs.subdir }}"
           export CC=clang-14 CXX=clang++-14
+          export MIGCC=/usr/local/bin/migcc
+          export HOST_CC=clang-14
           export SRCROOT="$PWD" OBJROOT="$WS/obj" DSTROOT="$WS/dst" SYMROOT="$WS/sym"
           mkdir -p "$OBJROOT" "$DSTROOT" "$SYMROOT"
-          make TARGET_CONFIGS="${{ inputs.target }}" > "$WS/build.log" 2>&1
-          echo "make exit $?"; wc -l "$WS/build.log"
-          echo "=== first lines ==="; head -25 "$WS/build.log"
-          echo "=== errors ==="; grep -n -m 60 -E "error|Error [0-9]|No such file|not found|Stop\.|undefined" "$WS/build.log"
-          echo "=== tail ==="; tail -40 "$WS/build.log"
+          # -k keeps going so one run reports every distinct failure
+          make -k TARGET_CONFIGS="${{ inputs.target }}" > "$WS/build.log" 2>&1
+          echo "=== make exit $? ==="; wc -l "$WS/build.log"
+          echo "=== distinct errors ==="
+          grep -h -oE "(fatal error|error): .*" "$WS/build.log" | sort -u | head -50
+          echo "=== distinct missing headers ==="
+          grep -h -oE "'[^']*' file not found" "$WS/build.log" | sort -u | head -30
+          echo "=== tail ==="; tail -30 "$WS/build.log"
           echo "=== kernel objects produced ==="
           find "$OBJROOT" -name "*.o" | wc -l
           find "$OBJROOT" -name "mach_kernel*" -o -name "*.linkmap" | head

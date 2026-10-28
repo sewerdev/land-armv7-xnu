@@ -1,0 +1,9 @@
+#!/bin/bash
+# MIG preprocesses every .defs file with $(MIGCC).  makedefs sets MIGCC to the
+# bare target compiler *without* the -target flags, so the preprocessing runs
+# for the host and `#if defined(__arm__)` in mach/machine/thread_state.h falls
+# through to `#error Unsupported arch`, which then aborts every mig step.
+# Pin the ARM target here so the preprocessor sees the same architecture as
+# the kernel proper.
+exec "${CLANG:-clang-14}" -target armv7-apple-ios6.1 -march=arm -mcpu=cortex-a8 \
+    -mfloat-abi=softfp -mfpu=vfpv3 "$@"
