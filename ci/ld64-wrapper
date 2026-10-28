@@ -1,0 +1,8 @@
+#!/bin/sh
+# clang reaches the linker through -fuse-ld=<this path>.
+#
+# The kernel's link flags come from makedefs and are Darwin-flavoured, so the
+# argument list is the first thing to inspect when cctools ld refuses them;
+# every call is logged next to the build log for that reason.
+echo "ld64-wrapper: $*" >> "${LD_WRAP_LOG:-/tmp/ld-wrapper.log}"
+exec "${MACHTOOLS_LD:-/opt/machdeps/usr/bin/arm-apple-darwin11-ld}" "$@"

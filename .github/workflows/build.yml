@@ -57,6 +57,8 @@ jobs:
           sudo install -m 755 ci/xcrun /usr/bin/xcrun
           sed -i 's/\r$//' ci/migcc
           sudo install -m 755 ci/migcc /usr/local/bin/migcc
+          sed -i 's/\r$//' ci/ld64-wrapper
+          sudo install -m 755 ci/ld64-wrapper /usr/local/bin/ld64-wrapper
           printf '#!/bin/bash\nexec /bin/bash /opt/machdeps/usr/bin/mig "$@"\n' | sudo tee /usr/bin/mig >/dev/null
           sudo chmod 755 /usr/bin/mig
           sudo ln -sf /usr/bin/tar /usr/bin/gnutar
@@ -92,6 +94,7 @@ jobs:
           cd "$WS/src/${{ inputs.subdir }}"
           export CC=clang-14 CXX=clang++-14
           export MIGCC=/usr/local/bin/migcc
+          export LD_WRAP_LOG="$WS/ld-wrapper.log"
           export HOST_CC=clang-14
           export SRCROOT="$PWD" OBJROOT="$WS/obj" DSTROOT="$WS/dst" SYMROOT="$WS/sym"
           mkdir -p "$OBJROOT" "$DSTROOT" "$SYMROOT"
@@ -123,5 +126,6 @@ jobs:
           name: armv7-logs
           path: |
             ${{ github.workspace }}/build.log
+            ${{ github.workspace }}/ld-wrapper.log
             /tmp/xcrun.log
           if-no-files-found: ignore

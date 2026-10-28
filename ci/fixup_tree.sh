@@ -101,3 +101,22 @@ for name in ("setsegname", "kextsymboltool", "decomment"):
         open(path, "w", encoding="utf-8", errors="surrogateescape").write(s)
         print("SETUP/%s: replaced Darwin <libc.h> with POSIX headers" % name)
 PY
+
+# The tree's C++ link driver still points at the original author's private
+# ld64 wrapper, which does not exist here.
+python3 - "$root/makedefs/MakeInc.def" <<'PY'
+import sys
+
+path = sys.argv[1]
+src = open(path, encoding="utf-8", errors="surrogateescape").read()
+old = "-fuse-ld=/home/kotu/j1ios/ios7/j1/ld64-wrapper"
+new = "-fuse-ld=/usr/local/bin/ld64-wrapper"
+if old in src:
+    src = src.replace(old, new)
+    open(path, "w", encoding="utf-8", errors="surrogateescape").write(src)
+    print("MakeInc.def: link driver redirected to /usr/local/bin/ld64-wrapper")
+elif new in src:
+    print("MakeInc.def: link driver already redirected")
+else:
+    print("MakeInc.def: no private wrapper path present")
+PY
