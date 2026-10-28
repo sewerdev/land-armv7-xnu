@@ -1,0 +1,92 @@
+#!/usr/bin/env python3
+"""setsegname replacement for a Linux host.
+
+Apple's SETUP/setsegname/setsegname.c cannot be compiled here: it needs
+<mach-o/swap.h> and <libc.h>, and the tree's EXTERNAL_HEADERS only carry
+loader/fat/nlist/reloc/stab.  What the tool actually does is small and worth
+restating: walk the load commands, and for every section of every segment that
+is not marked S_ATTR_DEBUG, overwrite the section's `segname` field with the
+name given on the command line.  The kernel object rule calls it as
+
+    setsegname __KLD <obj> -o <obj>__
+
+and then renames the result, so leaving it out (the xcrun fallback /bin/true)
+breaks every $(COMPONENT).filelist with `mv: cannot stat '<obj>__'`.
+"""
+
+import struct
+import sys
+
+S_ATTR_DEBUG = 0x02000000
+LC_SEGMENT = 0x1
+LC_SEGMENT_64 = 0x19
+
+# (header size, nsects offset from the command, section stride,
+#  segname offset in a section, flags offset in a section)
+LAYOUT = {
+    LC_SEGMENT: (56, 48, 68, 16, 52),
+    LC_SEGMENT_64: (72, 64, 80, 16, 64),
+}
+
+
+def patch(data, newname):
+    magic = struct.unpack_from("<I", data, 0)[0]
+    if magic in (0xFEEDFACE, 0xFEEDFACF):
+        endian = "<"
+    elif magic in (0xCEFAEDFE, 0xCFFAEDFE):
+        endian = ">"
+    else:
+        raise ValueError("not a Mach-O object (magic %#x)" % magic)
+
+    # mach_header: magic, cputype, cpusubtype, filetype, ncmds, sizeofcmds,
+    # (flags[, reserved]) -> ncmds always sits at +16, and the first load
+    # command follows a 28 byte (32-bit) or 32 byte (64-bit) header.
+    ncmds = struct.unpack_from(endian + "I", data, 16)[0]
+    off = 28 if magic in (0xFEEDFACE, 0xCEFAEDFE) else 32
+    changed = 0
+    for _ in range(ncmds):
+        if off + 8 > len(data):
+            break
+        cmd, cmdsize = struct.unpack_from(endian + "2I", data, off)
+        layout = LAYOUT.get(cmd)
+        if layout:
+            hdrsz, noff, stride, soff, foff = layout
+            nsects = struct.unpack_from(endian + "I", data, off + noff)[0]
+            pos = off + hdrsz
+            for _s in range(nsects):
+                flags = struct.unpack_from(endian + "I", data, pos + foff)[0]
+                if not flags & S_ATTR_DEBUG:
+                    data[pos + soff:pos + soff + 16] = newname
+                    changed += 1
+                pos += stride
+        if cmdsize == 0:
+            break
+        off += cmdsize
+    return changed
+
+
+def main(argv):
+    if len(argv) != 5 or argv[3] != "-o":
+        sys.stderr.write("Usage: %s NEWSEGNAME input -o output\n" % argv[0])
+        return 1
+    name = argv[1].encode()
+    if len(name) > 15:
+        sys.stderr.write("setsegname: segment name too long: %s\n" % argv[1])
+        return 1
+    name = name.ljust(16, b"\0")
+
+    data = bytearray(open(argv[2], "rb").read())
+    try:
+        changed = patch(data, name)
+    except ValueError as exc:
+        sys.stderr.write("setsegname: %s: %s\n" % (argv[2], exc))
+        return 1
+    with open(argv[4], "wb") as out:
+        out.write(data)
+    if changed == 0:
+        sys.stderr.write("setsegname: %s has no patchable sections\n" % argv[2])
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))

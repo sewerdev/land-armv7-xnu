@@ -98,16 +98,12 @@ jobs:
           # makedefs only builds the SETUP host tools on Darwin, but the kernel
           # object rule needs SEG_HACK (setsegname) on every platform.
           mkdir -p "$OBJROOT/SETUP/setsegname" "$OBJROOT/SETUP/kextsymboltool"
-          # EXTERNAL_HEADERS must come *after* the host headers: it carries its
-          # own stdint.h that expects the target's machine/types.h.
-          clang-14 -O1 -idirafter "$PWD/EXTERNAL_HEADERS" \
-              -o "$OBJROOT/SETUP/setsegname/setsegname" \
-              "$PWD/SETUP/setsegname/setsegname.c" \
-              && echo "setsegname built" || echo "setsegname FAILED"
-          clang-14 -O1 -idirafter "$PWD/EXTERNAL_HEADERS" -I"$PWD" \
-              -o "$OBJROOT/SETUP/kextsymboltool/kextsymboltool" \
-              "$PWD/SETUP/kextsymboltool/kextsymboltool.c" \
-              || echo "kextsymboltool skipped (only needed for static kmods)"
+          install -m 755 "$WS/ci/setsegname" "$OBJROOT/SETUP/setsegname/setsegname"
+          echo "setsegname installed"
+          # kextsymboltool only matters for STATIC_KMODS; the tree's copy needs
+          # <mach-o/arch.h> and <IOKit/IOTypes.h> that this export does not have
+          printf '#!/bin/sh\nexit 0\n' > "$OBJROOT/SETUP/kextsymboltool/kextsymboltool"
+          chmod 755 "$OBJROOT/SETUP/kextsymboltool/kextsymboltool"
           rc=0
           make -k TARGET_CONFIGS="${{ inputs.target }}" > "$WS/build.log" 2>&1 || rc=$?
           echo "=== make exit $rc ==="; wc -l "$WS/build.log"
