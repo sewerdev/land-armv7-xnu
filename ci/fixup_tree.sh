@@ -120,3 +120,68 @@ elif new in src:
 else:
     print("MakeInc.def: no private wrapper path present")
 PY
+
+# Four symbols stopped the link.  Two live in IOS7LeoSDLogger.cpp, which the
+# export ships but never adds to the build; one is leo_scanout_row.c, which the
+# audit says is absent from the public tree, so ci/extra carries it; and
+# upl_ubc_alias_set is a newer BSD UBC helper the callers were written against
+# but the tree never defines, where returning "no alias" keeps the callers on
+# their ordinary path.
+python3 - "$root" "${2:-}" <<'PY'
+import os
+import sys
+
+root, cidir = sys.argv[1], sys.argv[2]
+
+src = os.path.join(root, "pexpert", "arm", "leo_scanout_row.c")
+if cidir:
+    vendored = os.path.join(cidir, "extra", "leo_scanout_row.c")
+    if os.path.exists(vendored) and not os.path.exists(src):
+        open(src, "wb").write(open(vendored, "rb").read())
+        print("pexpert/arm/leo_scanout_row.c installed from ci/extra")
+
+
+def add_row(listfile, row, must_exist=None):
+    path = os.path.join(root, listfile)
+    if not os.path.exists(path):
+        print("%s: not present, skipped" % listfile)
+        return
+    text = open(path, encoding="utf-8", errors="surrogateescape").read()
+    name = row.split()[0]
+    if os.path.basename(name) in text:
+        print("%s: already lists %s" % (listfile, os.path.basename(name)))
+        return
+    if must_exist and not os.path.exists(os.path.join(root, name)):
+        print("%s: %s missing from the tree, not listed" % (listfile, name))
+        return
+    if not text.endswith("\n"):
+        text += "\n"
+    open(path, "w", encoding="utf-8", errors="surrogateescape").write(text + row + "\n")
+    print("%s: added %s" % (listfile, os.path.basename(name)))
+
+
+add_row("pexpert/conf/files.arm", "pexpert/arm/leo_scanout_row.c standard",
+        must_exist="pexpert/arm/leo_scanout_row.c")
+add_row("iokit/conf/files.arm",
+        "iokit/Drivers/KernelBuiltIn/ARM/AppleARMPlatform/IOS7LeoSDLogger.cpp"
+        "\toptional iokitcpp",
+        must_exist="iokit/Drivers/KernelBuiltIn/ARM/AppleARMPlatform/IOS7LeoSDLogger.cpp")
+
+ubc = os.path.join(root, "bsd", "kern", "ubc_subr.c")
+if os.path.exists(ubc):
+    text = open(ubc, encoding="utf-8", errors="surrogateescape").read()
+    if "upl_ubc_alias_set" not in text:
+        open(ubc, "a", encoding="utf-8", errors="surrogateescape").write(
+            "\n/*\n * vfs_bio.c and nfs_vnops.c call this to keep a buf and its uap in step\n"
+            " * when the pager already owns a dirty range. The tree carries the callers but\n"
+            " * not the helper, so provide the conservative answer: no alias, which leaves\n"
+            " * both callers on the path they already take when the alias is absent.\n"
+            " */\n"
+            "int\n"
+            "upl_ubc_alias_set(upl_t upl, uintptr_t alias_offset, uintptr_t alias_length)\n"
+            "{\n"
+            "\t#pragma unused(upl, alias_offset, alias_length)\n"
+            "\treturn 0;\n"
+            "}\n")
+        print("bsd/kern/ubc_subr.c: upl_ubc_alias_set added")
+PY
